@@ -3,7 +3,7 @@
     "src/index.ts",
   ],
   "compilerOptions": {
-    "target": "es6",
+    "target": "ES2020",
     "module": "es6",
     "strict": true,
     "skipLibCheck": true
