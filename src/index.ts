@@ -9,7 +9,7 @@ import {
   Context
 } from "../types/interfaces/edgee-protocols-data-collection";
 
-const API_ENDPOINT: string = "https://your-endpoint.com/path";
+const API_ENDPOINT = "https://your-endpoint.com/path";
 
 type JSONValue =
     | string
@@ -23,7 +23,7 @@ interface JSONObject {
     [x: string]: JSONValue;
 }
 
-type JSONArray = Array<JSONValue>;
+type JSONArray = JSONValue[];
 
 const convertDict = (dict: Dict): Map<string, string> => {
   const data = new Map<string, string>();
