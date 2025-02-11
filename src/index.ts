@@ -11,17 +11,31 @@ import {
 
 const API_ENDPOINT: string = "https://your-endpoint.com/path";
 
-const convertDict = (dict: Dict): Map<string, string> => {
-  let data = new Map<string, string>();
+type JSONValue =
+    | string
+    | number
+    | boolean
+    | JSONObject
+    | JSONArray
+    | Map<string, string>;
 
-  for (let [key, value] of dict) {
+interface JSONObject {
+    [x: string]: JSONValue;
+}
+
+type JSONArray = Array<JSONValue>;
+
+const convertDict = (dict: Dict): Map<string, string> => {
+  const data = new Map<string, string>();
+
+  for (const [key, value] of dict) {
     data.set(key, value);
   }
 
   return data;
 };
 
-const buildEdgeeRequest = (payload: any, apiKey: string): EdgeeRequest => ({
+const buildEdgeeRequest = (payload: JSONObject, apiKey: string): EdgeeRequest => ({
   method: 'POST',
   url: API_ENDPOINT,
   headers: [
@@ -32,7 +46,7 @@ const buildEdgeeRequest = (payload: any, apiKey: string): EdgeeRequest => ({
   forwardClientHeaders: true,
 });
 
-const buildPagePayload = (data: PageData, context: Context): any => {
+const buildPagePayload = (data: PageData, context: Context): JSONObject => {
   const sessionId = parseInt(context.session.sessionId);
   const pageTitle = data.title;
   // TODO extract data/context fields and build payload object
@@ -42,7 +56,7 @@ const buildPagePayload = (data: PageData, context: Context): any => {
   };
 };
 
-const buildTrackPayload = (data: TrackData, context: Context): any => {
+const buildTrackPayload = (data: TrackData, context: Context): JSONObject => {
   const sessionId = parseInt(context.session.sessionId);
   const eventName = data.name;
   const eventProperties = convertDict(data.properties);
@@ -54,7 +68,7 @@ const buildTrackPayload = (data: TrackData, context: Context): any => {
   };
 };
 
-const buildUserPayload = (data: UserData, context: Context): any => {
+const buildUserPayload = (data: UserData, context: Context): JSONObject => {
   const sessionId = parseInt(context.session.sessionId);
   const userId = data.userId;
   // TODO extract data/context fields and build payload object
