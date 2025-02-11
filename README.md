@@ -35,5 +35,5 @@ $ npm install
 ## Building
 
 ```shell
-$ npm run build
+$ edgee components build
 ```
