@@ -3,6 +3,6 @@
     "spec": ["test/**/*.spec.*"],
     "node-option": [
       "experimental-specifier-resolution=node",
-      "loader=ts-node/esm"
+      "import=./test/register-loader.js"
     ]
   }
