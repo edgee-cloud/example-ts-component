@@ -87,7 +87,7 @@ export const dataCollection: typeof EdgeeProtocolsDataCollection = {
 
     // convert to native object
     const dictSettings = convertDict(settings);
-    const apiKey = dictSettings.get('your_api_key');
+    const apiKey = dictSettings.get('example');
     if (!apiKey) throw new Error("Missing API key");
 
     // build payload
@@ -104,7 +104,7 @@ export const dataCollection: typeof EdgeeProtocolsDataCollection = {
 
     // convert to native object
     const dictSettings = convertDict(settings);
-    const apiKey = dictSettings.get('your_api_key');
+    const apiKey = dictSettings.get('example');
     if (!apiKey) throw new Error("Missing API key");
     
 
@@ -122,7 +122,7 @@ export const dataCollection: typeof EdgeeProtocolsDataCollection = {
 
     // convert to native object
     const dictSettings = convertDict(settings);
-    const apiKey = dictSettings.get('your_api_key');
+    const apiKey = dictSettings.get('example');
     if (!apiKey) throw new Error("Missing API key");
 
     // build payload
