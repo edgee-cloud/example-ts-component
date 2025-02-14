@@ -87,7 +87,7 @@ describe('data collection component', function () {
   };
 
   const sampleSettings: Dict = [
-    ["your_api_key", "api_value"]
+    ["example", "api_value"]
   ];
 
   describe('#page()', function () {
