@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { describe, it } from "mocha";
 import { dataCollection} from '../src/index';
-import { EdgeeRequest, Dict, Event } from "../types/interfaces/edgee-protocols-data-collection";
+import { EdgeeRequest, Dict, Event } from "../types/interfaces/edgee-components-data-collection";
 
 describe('data collection component', function () {
 
