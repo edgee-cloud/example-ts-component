@@ -1,5 +1,5 @@
 import {
-  EdgeeProtocolsDataCollection,
+  EdgeeComponentsDataCollection,
   EdgeeRequest,
   Dict,
   Event,
@@ -7,7 +7,7 @@ import {
   TrackData,
   UserData,
   Context
-} from "../types/interfaces/edgee-protocols-data-collection";
+} from "../types/interfaces/edgee-components-data-collection";
 
 const API_ENDPOINT = "https://your-endpoint.com/path";
 
@@ -78,7 +78,7 @@ const buildUserPayload = (data: UserData, context: Context): JSONObject => {
   };
 };
 
-export const dataCollection: typeof EdgeeProtocolsDataCollection = {
+export const dataCollection: typeof EdgeeComponentsDataCollection = {
 
   page(e: Event, settings: Dict) {
     if (e.data.tag != 'page') {
