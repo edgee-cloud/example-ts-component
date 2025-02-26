@@ -8,7 +8,7 @@ subcategory = "analytics"
 description = "Example TypeScript component for data collection"
 documentation = "https://github.com/edgee-cloud/example-ts-component"
 repository = "https://github.com/edgee-cloud/example-ts-component"
-wit-world-version = "0.4.0"
+wit-world-version = "0.5.0"
 
 [component.build]
 command = "npm install && npm run generate && npm run build"
