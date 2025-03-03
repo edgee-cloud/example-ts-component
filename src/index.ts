@@ -1,5 +1,5 @@
+import * as EdgeeComponentsDataCollection from "../types/interfaces/edgee-components-data-collection";
 import {
-  EdgeeComponentsDataCollection,
   EdgeeRequest,
   Dict,
   Event,
