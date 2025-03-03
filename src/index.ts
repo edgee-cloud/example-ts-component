@@ -1,6 +1,6 @@
 import type {
   dataCollection as EdgeeDataCollection,
-} from "../types/wit.d.ts";
+} from "../types/wit";
 
 const API_ENDPOINT = "https://your-endpoint.com/path";
 
