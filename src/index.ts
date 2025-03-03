@@ -1,13 +1,6 @@
-import {
-  EdgeeComponentsDataCollection,
-  EdgeeRequest,
-  Dict,
-  Event,
-  PageData,
-  TrackData,
-  UserData,
-  Context
-} from "../types/interfaces/edgee-components-data-collection";
+import type {
+  dataCollection as EdgeeDataCollection,
+} from "../types/wit";
 
 const API_ENDPOINT = "https://your-endpoint.com/path";
 
@@ -25,7 +18,7 @@ interface JSONObject {
 
 type JSONArray = JSONValue[];
 
-const convertDict = (dict: Dict): Map<string, string> => {
+const convertDict = (dict: EdgeeDataCollection.Dict): Map<string, string> => {
   const data = new Map<string, string>();
 
   for (const [key, value] of dict) {
@@ -35,7 +28,7 @@ const convertDict = (dict: Dict): Map<string, string> => {
   return data;
 };
 
-const buildEdgeeRequest = (payload: JSONObject, apiKey: string): EdgeeRequest => ({
+const buildEdgeeRequest = (payload: JSONObject, apiKey: string): EdgeeDataCollection.EdgeeRequest => ({
   method: 'POST',
   url: API_ENDPOINT,
   headers: [
@@ -46,7 +39,7 @@ const buildEdgeeRequest = (payload: JSONObject, apiKey: string): EdgeeRequest =>
   forwardClientHeaders: true,
 });
 
-const buildPagePayload = (data: PageData, context: Context): JSONObject => {
+const buildPagePayload = (data: EdgeeDataCollection.PageData, context: EdgeeDataCollection.Context): JSONObject => {
   const sessionId = parseInt(context.session.sessionId);
   const pageTitle = data.title;
   // TODO extract data/context fields and build payload object
@@ -56,7 +49,7 @@ const buildPagePayload = (data: PageData, context: Context): JSONObject => {
   };
 };
 
-const buildTrackPayload = (data: TrackData, context: Context): JSONObject => {
+const buildTrackPayload = (data: EdgeeDataCollection.TrackData, context: EdgeeDataCollection.Context): JSONObject => {
   const sessionId = parseInt(context.session.sessionId);
   const eventName = data.name;
   const eventProperties = convertDict(data.properties);
@@ -68,7 +61,7 @@ const buildTrackPayload = (data: TrackData, context: Context): JSONObject => {
   };
 };
 
-const buildUserPayload = (data: UserData, context: Context): JSONObject => {
+const buildUserPayload = (data: EdgeeDataCollection.UserData, context: EdgeeDataCollection.Context): JSONObject => {
   const sessionId = parseInt(context.session.sessionId);
   const userId = data.userId;
   // TODO extract data/context fields and build payload object
@@ -78,9 +71,9 @@ const buildUserPayload = (data: UserData, context: Context): JSONObject => {
   };
 };
 
-export const dataCollection: typeof EdgeeComponentsDataCollection = {
+export const dataCollection: typeof EdgeeDataCollection = {
 
-  page(e: Event, settings: Dict) {
+  page(e: EdgeeDataCollection.Event, settings: EdgeeDataCollection.Dict) {
     if (e.data.tag != 'page') {
       throw new Error("Missing page data");
     }
@@ -97,7 +90,7 @@ export const dataCollection: typeof EdgeeComponentsDataCollection = {
     return buildEdgeeRequest(payload, apiKey);
   },
 
-  track(e: Event, settings: Dict) {
+  track(e: EdgeeDataCollection.Event, settings: EdgeeDataCollection.Dict) {
     if (e.data.tag != 'track') {
       throw new Error("Missing track data");
     }
@@ -115,7 +108,7 @@ export const dataCollection: typeof EdgeeComponentsDataCollection = {
     return buildEdgeeRequest(payload, apiKey);
   },
 
-  user(e: Event, settings: Dict) {
+  user(e: EdgeeDataCollection.Event, settings: EdgeeDataCollection.Dict) {
     if (e.data.tag != 'user') {
       throw new Error("Missing user data");
     }
