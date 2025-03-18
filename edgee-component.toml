@@ -9,7 +9,7 @@ description = "Example TypeScript component for data collection"
 documentation = "https://github.com/edgee-cloud/example-ts-component"
 repository = "https://github.com/edgee-cloud/example-ts-component"
 language = "TypeScript"
-wit-version = "0.5.0"
+wit-version = "1.0.0"
 
 [component.build]
 command = "npm install && npm run generate && npm run build"
