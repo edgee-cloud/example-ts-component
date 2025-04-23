@@ -1,7 +1,7 @@
 manifest-version = 1
 
 [component]
-name = "example-ts-component"
+name = "example-ts-consent-management-component"
 version = "1.0.0"
 category = "consent-management"
 subcategory = "consent-mapping"
