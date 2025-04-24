@@ -1,0 +1,28 @@
+{
+  "name": "example-ts-component",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "types/wit.d.ts",
+  "scripts": {
+    "generate": "npx @bytecodealliance/jco types .edgee/wit -o types",
+    "compile": "npx tsc",
+    "build": "npm run compile && npx @bytecodealliance/jco componentize src/index.js --wit .edgee/wit -o example-ts-component.wasm -n consent-management -d all",
+    "lint": "npx eslint",
+    "test": "mocha",
+    "coverage": "c8 --src js --all -r text -r text-summary npm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.10",
+    "@types/sinon": "^17.0.3",
+    "c8": "^10.1.3",
+    "chai": "^5.1.2",
+    "eslint": "^9.20.0",
+    "mocha": "^11.1.0",
+    "sinon": "^19.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0"
+  }
+}
