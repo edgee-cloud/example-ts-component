@@ -1,0 +1,15 @@
+{
+  "files": [
+    "src/index.ts",
+  ],
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "es6",
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "paths": {
+      "wasi:http/types@0.2.0": [ "./types/interfaces/wasi-http-types.d.ts" ]
+    },
+  }
+}
