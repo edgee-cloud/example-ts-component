@@ -1,9 +1,0 @@
-# Node stuff
-/node_modules
-/coverage
-
-.edgee/
-src/index.js
-
-# Build artifacts
-*.wasm
