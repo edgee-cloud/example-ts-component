@@ -58,7 +58,11 @@ export function parseHeaders(headers: Fields) {
     const headerName = key;
     const headerValue = decoder.decode(value);
     if (headerValue) {
-      output[headerName].push(headerValue);
+      if (!output[headerName]) {
+        output[headerName] = [headerValue];
+      } else {
+        output[headerName].push(headerValue);
+      }
     }
   }
   return output;
@@ -73,9 +77,10 @@ export function parseBody(req: IncomingRequest) {
       if (!chunk || chunk.length === 0) {
         break;
       }
+
       requestBody.push(chunk);
     } catch (e) {
-      if (e === "Closed") {
+      if ((e as any).payload.tag === "closed") {
         // Stream is closed, we can stop reading
         break;
       }

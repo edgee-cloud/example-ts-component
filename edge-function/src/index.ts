@@ -68,13 +68,20 @@ const index = `
 
 function handle(req: IncomingRequest, resp: ResponseOutparam) {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const settings = Settings.fromHeaders(req.headers());
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const body = parseBody(req);
-    const response = buildResponseHtml(index, 200);
+
+    const dynamicIndex = index.replace(
+      "<p>We're working hard to launch something awesome. Stay tuned!</p>",
+      `<p>We're working hard to launch something awesome. Stay tuned!</p>
+      <p><strong>Example setting:</strong> ${settings.example}</p>`
+    );
+
+    const response = buildResponseHtml(dynamicIndex, 200);
+
     response.send(resp);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     const response = buildResponseHtml(index, 200);
     response.send(resp);
