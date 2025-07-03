@@ -1,11 +1,15 @@
 import {
-    ResponseOutparam,
-    OutgoingBody,
-    OutgoingResponse,
-    Fields,
-    InputStream,
-    IncomingRequest,
+  Fields,
+  IncomingRequest,
+  ResponseOutparam,
 } from "wasi:http/types@0.2.0";
+
+import {
+  buildResponseHtml,
+  parseBody,
+  ParsedHeaders,
+  parseHeaders,
+} from "./helpers";
 
 const index = `
 <!DOCTYPE html>
@@ -60,27 +64,54 @@ const index = `
   </div>
 </body>
 </html>
-`
+`;
 
 function handle(req: IncomingRequest, resp: ResponseOutparam) {
-    const outgoingResponse = new OutgoingResponse(new Fields());
-    outgoingResponse.setStatusCode(200);
+  try {
+    const settings = Settings.fromHeaders(req.headers());
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const body = parseBody(req);
 
-    let outgoingBody = outgoingResponse.body();
-    {
-        let outputStream = outgoingBody.write();
-        outputStream.write(
-            new Uint8Array(new TextEncoder().encode(index))
-        );
-        outputStream.flush();
-        // @ts-ignore: need to drop the stream according to WASI spec
-        outputStream[Symbol.dispose]();
-    }
+    const dynamicIndex = index.replace(
+      "<p>We're working hard to launch something awesome. Stay tuned!</p>",
+      `<p>We're working hard to launch something awesome. Stay tuned!</p>
+      <p><strong>Example setting:</strong> ${settings.example}</p>`
+    );
 
-    OutgoingBody.finish(outgoingBody, undefined);
-    ResponseOutparam.set(resp, { tag: 'ok', val: outgoingResponse });
+    const response = buildResponseHtml(dynamicIndex, 200);
+
+    response.send(resp);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e) {
+    const response = buildResponseHtml(index, 200);
+    response.send(resp);
+  }
 }
 
 export const incomingHandler = {
-    handle,
+  handle,
 };
+
+export class Settings {
+  public example = "default";
+  constructor(example: string) {
+    this.example = example;
+  }
+
+  public static fromHeaders(headers: Fields) {
+    const settings = Settings.new(parseHeaders(headers));
+    return settings;
+  }
+
+  public static new(headers: ParsedHeaders) {
+    const settings = headers["x-edgee-component-settings"];
+    if (settings.length !== 1) {
+      throw new Error(
+        "Expected exactly one 'x-edgee-component-settings' header"
+      );
+    }
+    const setting = settings[0];
+    const parsedSetting: Record<string, string> = JSON.parse(setting);
+    return new Settings(parsedSetting["example"] ?? "");
+  }
+}
