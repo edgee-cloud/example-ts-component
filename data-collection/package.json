@@ -6,7 +6,7 @@
   "scripts": {
     "generate": "npx @bytecodealliance/jco types .edgee/wit -o types",
     "compile": "npx tsc",
-    "build": "npm run compile && npx @bytecodealliance/jco componentize src/index.js --wit .edgee/wit -o example-ts-component.wasm -n data-collection -d all",
+    "build": "npm run compile && npx @bytecodealliance/jco@1.11.3 componentize src/index.js --wit .edgee/wit -o example-ts-component.wasm -n data-collection -d all",
     "lint": "npx eslint",
     "test": "mocha",
     "coverage": "c8 --src js --all -r text -r text-summary npm test"
