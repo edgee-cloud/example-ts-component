@@ -4,9 +4,10 @@
   "main": "src/index.ts",
   "types": "types/wit.d.ts",
   "scripts": {
-    "generate": "npx @bytecodealliance/jco types .edgee/wit -o types",
+    "generate": "npx @bytecodealliance/jco@1.13.0 types .edgee/wit -o types",
     "compile": "npx tsc",
-    "build": "npm run compile && npx @bytecodealliance/jco@1.11.3 componentize src/index.js --wit .edgee/wit -o example-ts-component.wasm -n data-collection -d all",
+    "build": "npm run compile && npx @bytecodealliance/jco@1.13.0 componentize src/index.js --wit .edgee/wit -o example-ts-component.wasm -d http -d fetch-event",
+    "build-componentize": "npm run compile && npx @bytecodealliance/componentize-js@0.18.4 src/index.js --wit .edgee/wit -o example-ts-component.wasm -d http -d fetch-event",
     "lint": "npx eslint",
     "test": "mocha",
     "coverage": "c8 --src js --all -r text -r text-summary npm test"
